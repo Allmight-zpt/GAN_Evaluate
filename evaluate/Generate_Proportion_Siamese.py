@@ -4,7 +4,6 @@ import torch.utils.data
 from torch.autograd import Variable
 from utils.GAN import G
 import torchvision.utils as vutils
-
 from utils.Siamese import SiameseNetwork
 from utils.tools import createWorkDir, getFashionMnist, getMnist, batchToOne
 
@@ -39,30 +38,6 @@ for i in range(10):
             anchors[i + 10] = img
             break
 
-
-anchors_tow = {}
-for i in range(10):
-    co = 0
-    for j in range(len(mnist_trainSet)):
-        img, label = mnist_trainSet[j]
-        if label == i:
-            if co == 0:
-                co += 1
-                continue
-            else:
-                anchors_tow[i] = img
-                break
-for i in range(10):
-    co = 0
-    for j in range(len(fashion_mnist_trainSet)):
-        img, label = fashion_mnist_trainSet[j]
-        if label == i:
-            if co == 0:
-                co += 1
-                continue
-            else:
-                anchors_tow[i + 10] = img
-                break
 # 定义生成器
 netG = G().to(device)
 
@@ -85,26 +60,18 @@ noise = Variable(torch.randn(batchSize, 100, 1, 1)).to(device)
 fake = netG(noise)
 # 3. 与anchor进行比较
 similarity_score = {i: [] for i in range(batchSize)}
-# for idx, img in enumerate(fake):
-#     for anchor in anchors.values():
-#         anchor = anchor.to(device)
-#         output1, output2 = siamese(img.unsqueeze(0), anchor.unsqueeze(0))
-#         score = torch.norm(output1 - output2, dim=1)
-#         similarity_score[idx].append(score.item())
-
-for idx, anchor_tow in enumerate(anchors_tow.values()):
+for idx, img in enumerate(fake):
     for anchor in anchors.values():
         anchor = anchor.to(device)
-        anchor_tow = anchor_tow.to(device)
-        output1, output2 = siamese(anchor_tow.unsqueeze(0), anchor.unsqueeze(0))
+        output1, output2 = siamese(img.unsqueeze(0), anchor.unsqueeze(0))
         score = torch.norm(output1 - output2, dim=1)
         similarity_score[idx].append(score.item())
 
-# plt.figure(figsize=(15, 8))
-# for i in range(batchSize):
-#     plt.plot(range(classNumber), similarity_score[i])
-# plt.savefig('%s/result.png' % (workDirName + '/' + subDirName[1]))
-for i in range(classNumber):
-    print(np.argmax(similarity_score[i]))
+plt.figure(figsize=(15, 8))
+for i in range(batchSize):
+    plt.plot(range(classNumber), similarity_score[i])
+plt.savefig('%s/result.png' % (workDirName + '/' + subDirName[1]))
+for i in range(batchSize):
+    print(np.argmin(similarity_score[i]))
 vutils.save_image(fake.data, '%s/fake.png' % (workDirName + '/' + subDirName[0]), normalize=True)
 vutils.save_image(batchToOne(anchors, 4, 5).data, '%s/anchors.png' % (workDirName + '/' + subDirName[0]), normalize=True)
