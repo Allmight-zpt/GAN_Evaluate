@@ -24,7 +24,7 @@ netG = G().to(device)
 classifier = ThreeClassClassifier().to(device)
 
 # 加载生成器预训练模型
-netG.load_state_dict(torch.load('../pretrain_weights/GANs/netG_22000.pt'))
+netG.load_state_dict(torch.load('../pretrain_weights/GANs/EWC.pt'))
 
 # 加载分类器预训练模型
 classifier.load_state_dict(torch.load('../pretrain_weights/Classifiers/net_0009.pt'))

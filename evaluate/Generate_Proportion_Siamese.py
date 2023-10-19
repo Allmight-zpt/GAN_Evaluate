@@ -45,7 +45,7 @@ netG = G().to(device)
 siamese = SiameseNetwork().to(device)
 
 # 加载生成器预训练模型
-netG.load_state_dict(torch.load('../pretrain_weights/GANs/netG_22000.pt'))
+netG.load_state_dict(torch.load('../pretrain_weights/GANs/EWC.pt'))
 
 # 加载分类器预训练模型
 siamese.load_state_dict(torch.load('../pretrain_weights/SiameseNets/net_0009.pt'))
