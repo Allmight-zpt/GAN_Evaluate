@@ -62,7 +62,7 @@ def calculate_frechet_distance(mu1, sigma1, mu2, sigma2, eps=1e-6):
     assert mu1.shape == mu2.shape, \
         'Training and test mean vectors have different lengths'
     assert sigma1.shape == sigma2.shape, \
-        'Training and test covariances have different dimensions'
+        'Training and test covariances have different dimensions sigma1:{}, sigma2:{}, sigma1.shape:{}, sigma2.shape:{}'.format(sigma1, sigma2, sigma1.shape, sigma2.shape)
     diff = mu1 - mu2
     # Product might be almost singular
     covmean, _ = linalg.sqrtm(sigma1.dot(sigma2), disp=False)

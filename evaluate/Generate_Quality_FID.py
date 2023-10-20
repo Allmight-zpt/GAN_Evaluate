@@ -6,6 +6,7 @@ from utils.GAN import G
 from utils.tools import getMnist, createWorkDir
 
 '''
+给定一个生成模型
 使用FID进行生成图片质量评估
 '''
 # 定义超参数

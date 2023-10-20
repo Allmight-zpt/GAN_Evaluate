@@ -8,6 +8,7 @@ from utils.Siamese import SiameseNetwork
 from utils.tools import createWorkDir, getFashionMnist, getMnist, batchToOne
 
 '''
+给定一个生成模型
 使用孪生网络进行模型生成比例的评估
 '''
 

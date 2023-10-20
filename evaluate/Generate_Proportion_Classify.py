@@ -8,6 +8,7 @@ import torchvision.utils as vutils
 from utils.tools import createWorkDir
 
 '''
+给定一个生成模型
 使用分类器进行模型生成比例的评估
 '''
 

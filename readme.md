@@ -9,7 +9,9 @@
 - 生成多样性
 
 ## 目录介绍
+- data: 数据
 - evaluate: 评估方法
 - pretrain_weights: 预训练模型
 - result: 实验结果
+- scripts: 运行脚本
 - utils: 实用工具
