@@ -81,3 +81,10 @@ def batchToOne(batchImage, row, col):
             temp_res = torch.cat((temp_res, batchImage[i * col + j]), dim=2)
         res = torch.cat((res, temp_res), dim=1)
     return res
+
+
+# 删除文件夹中的所有文件
+def deleteFile(dirPath):
+    for i in os.listdir(dirPath):
+        file = dirPath + '/' + i
+        os.remove(file)
