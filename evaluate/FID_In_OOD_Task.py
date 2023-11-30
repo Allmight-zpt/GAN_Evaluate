@@ -22,7 +22,7 @@ from utils.tools import getMnist, createWorkDir, getFashionMnist, deleteFile
 '''
 # 获取命令行参数
 parser = argparse.ArgumentParser()
-parser.add_argument('--weightDir', default='xxx', type=str, help ='模型权重存储目录')
+parser.add_argument('--weightDir', default='', type=str, help='模型权重存储目录')
 args = parser.parse_args()
 
 # 定义超参数
@@ -88,12 +88,12 @@ for weightIdx, weight in enumerate(weights):
             vutils.save_image(img, workDirName + '/' + subDirName[2] + '/' + "image_{}.png".format(idx), normalize=True)
             counter['MnistImageNum'] += 1
             if counter['MnistImageNum'] == 1:
-                vutils.save_image(img, workDirName + '/' + subDirName[2] + '/' + "image_{}.png".format(idx), normalize=True)
+                vutils.save_image(img, workDirName + '/' + subDirName[2] + '/' + "image_{}.png".format(numGenImage+idx), normalize=True)
         elif cls == 1:
             vutils.save_image(img, workDirName + '/' + subDirName[3] + '/' + "image_{}.png".format(idx), normalize=True)
             counter['FashionMnistImageNum'] += 1
             if counter['FashionMnistImageNum'] == 1:
-                vutils.save_image(img, workDirName + '/' + subDirName[3] + '/' + "image_{}.png".format(idx), normalize=True)
+                vutils.save_image(img, workDirName + '/' + subDirName[3] + '/' + "image_{}.png".format(numGenImage+idx), normalize=True)
 
 
     # 计算FID

@@ -88,3 +88,8 @@ def deleteFile(dirPath):
     for i in os.listdir(dirPath):
         file = dirPath + '/' + i
         os.remove(file)
+
+# 获取目录下的所有文件夹名称
+def get_all_folders(directory):
+    folders = [folder for folder in os.listdir(directory) if os.path.isdir(os.path.join(directory, folder))]
+    return folders
