@@ -89,7 +89,25 @@ def deleteFile(dirPath):
         file = dirPath + '/' + i
         os.remove(file)
 
+
 # 获取目录下的所有文件夹名称
 def get_all_folders(directory):
     folders = [folder for folder in os.listdir(directory) if os.path.isdir(os.path.join(directory, folder))]
     return folders
+
+
+# 插值函数
+def interpolate_and_extend(data, factor=2, extra_points=1):
+    x_old = np.arange(data.shape[1])
+    x_new = np.linspace(0, data.shape[1] - 1, data.shape[1] * factor)
+    data_interpolated = np.zeros((data.shape[0], len(x_new) + extra_points - 1))  # 去掉一个重复点
+
+    for i in range(data.shape[0]):
+        interpolated = np.interp(x_new, x_old, data[i])
+        # 生成新的额外数据点，这里使用线性外推，可以根据需要修改为其他逻辑
+        extra_data = np.linspace(interpolated[-1] + (interpolated[-1] - interpolated[-2]),
+                                 interpolated[-1] + (interpolated[-1] - interpolated[-2]) * extra_points,
+                                 extra_points - 1)
+        data_interpolated[i] = np.concatenate((interpolated, extra_data))
+
+    return data_interpolated
